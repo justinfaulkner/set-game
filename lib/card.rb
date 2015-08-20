@@ -25,6 +25,26 @@ class Card
     def new_random
       new(COLORS.sample, SHAPES.sample, SHADINGS.sample, NUMBERS.sample)
     end
+
+    def property_values_for property_name
+      case property_name
+        when :color
+          self::COLORS
+        when :shape
+          self::SHAPES
+        when :shading
+          self::SHADINGS
+        when :number
+          self::NUMBERS
+      end
+    end
+
+    def other_value_for property_name, first_property, second_property
+      all_values = self.property_values_for property_name
+      all_values.delete(first_property)
+      all_values.delete(second_property)
+      all_values.first
+    end
   end
 
   def initialize(color, shape, shading, number)
@@ -37,4 +57,6 @@ class Card
   def to_s
     "#{@color} #{@shape} #{@shading} #{@number}"
   end
+
+
 end

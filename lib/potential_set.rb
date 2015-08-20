@@ -8,8 +8,8 @@ class PotentialSet
 
   def is_set?
     valid = true
-    Card::PROPERTIES.each do |property|
-      valid = validate_property property
+    Card::PROPERTIES.each do |property_name|
+      valid = validate_property property_name
       break unless valid
     end
     valid

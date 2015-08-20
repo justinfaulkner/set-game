@@ -20,7 +20,45 @@ class Board
   end
 
   def find_set
-    build_property_map
+    set = nil
+    @cards.each do |card|
+      set = find_set_for_card card
+      break unless set.empty?
+    end
+    remove_set_from_property_map set unless set.nil?
+    set
+  end
+
+  def find_set_for_card card
+    @cards.each do |second_card|
+      next if second_card == card
+      third_card = find_matching_third_card card, second_card
+      return Set.new [card, second_card, third_card] unless third_card.nil?
+    end
+  end
+
+  def find_matching_third_card first, second
+    matches = @cards
+    Card::PROPERTIES.each do |property_name|
+      first_property = first.send(property_name)
+      second_property = second.send(property_name)
+      same = first_property == second_property
+      if same
+        matches = matches & matches_for_property(first_property)
+      else
+        matches = matches & antimatches_for_property(property_name, first_property, second_property)
+      end
+    end
+    matches.first unless matches.empty?
+  end
+
+  def matches_for_property property_value
+    @property_map[property_value]
+  end
+
+  def antimatches_for_property(property_name, first_property, second_property)
+    other_property = Card.other_value_for property_name, first_property, second_property
+    matches_for_property other_property
   end
 
   def build_property_map
@@ -30,9 +68,22 @@ class Board
   end
 
   def add_card_to_property_map card
-    Card::PROPERTIES.each do |property|
-      card_property = card.send(property)
+    Card::PROPERTIES.each do |property_name|
+      card_property = card.send(property_name)
       @property_map[card_property] << card
+    end
+  end
+
+  def remove_card_from_property_map card
+    Card::PROPERTIES.each do |property_name|
+      card_property = card.send(property_name)
+      @property_map[card_property].delete card
+    end
+  end
+
+  def remove_set_from_property_map set
+    set.each do |card|
+      remove_card_from_property_map card
     end
   end
 end

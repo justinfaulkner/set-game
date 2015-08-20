@@ -9,6 +9,21 @@ describe Board do
     end
   end
 
+  describe :basic_board do
+    let(:card_1) { Card.new(Card::COLOR_RED, Card::SHAPE_DIAMOND, Card::SHADING_SOLID, 1) }
+    let(:card_2) { Card.new(Card::COLOR_RED, Card::SHAPE_DIAMOND, Card::SHADING_SOLID, 1) }
+    let(:card_3) { Card.new(Card::COLOR_RED, Card::SHAPE_DIAMOND, Card::SHADING_SOLID, 1) }
+
+    let(:board) { Board.new [card_1, card_2, card_3].to_set }
+
+    describe :find_set do
+      it "should find the set" do
+        set = board.find_set
+        set.must_equal [card_1, card_2, card_3].to_set
+      end
+    end
+  end
+
   describe :existing_board do
     let(:card_1) { Card.new(Card::COLOR_RED, Card::SHAPE_DIAMOND, Card::SHADING_SOLID, 1) }
     let(:card_2) { Card.new(Card::COLOR_GREEN, Card::SHAPE_SQUIGGLE, Card::SHADING_STRIPED, 2) }
@@ -18,12 +33,12 @@ describe Board do
     let(:board) { Board.new [card_1, card_2, card_3, card_4].to_set }
 
     describe :find_set do
-      # it "should find the set" do
-      #   set = board.find_set
-      #   set.must_equal [card_1, card_2, card_3].to_set
-      # end
+      it "should find the set" do
+        set = board.find_set
+        set.must_equal [card_1, card_2, card_3].to_set
+      end
     end
-
+    
     describe :add_card_to_property_map do
       it "should index card by all its properties" do
         board.add_card_to_property_map card_1
