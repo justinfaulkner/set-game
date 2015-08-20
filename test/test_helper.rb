@@ -5,3 +5,4 @@ require 'minitest/autorun'
 
 require 'card'
 require 'potential_set'
+require 'board'

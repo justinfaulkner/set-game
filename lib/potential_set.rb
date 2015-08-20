@@ -3,7 +3,7 @@ class PotentialSet
   attr_accessor :cards
 
   def initialize card_1, card_2, card_3
-    self.cards = Set.new [card_1, card_2, card_3]
+    @cards = Set.new [card_1, card_2, card_3]
   end
 
   def is_set?
@@ -22,7 +22,7 @@ class PotentialSet
   end
 
   def variations_for_property property
-    self.cards.map(&property).to_set
+    @cards.map(&property).to_set
   end
 
 

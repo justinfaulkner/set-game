@@ -28,13 +28,13 @@ class Card
   end
 
   def initialize(color, shape, shading, number)
-    self.color = color
-    self.shape = shape
-    self.shading = shading
-    self.number = number
+    @color = color
+    @shape = shape
+    @shading = shading
+    @number = number
   end
 
   def to_s
-    "#{self.color} #{self.shape} #{self.shading} #{self.number}"
+    "#{@color} #{@shape} #{@shading} #{@number}"
   end
 end
