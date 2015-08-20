@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'bundler/setup'
+Bundler.require(:default)
+
+require_relative '../lib/card'
+require_relative '../lib/potential_set'
+
+puts "lala"

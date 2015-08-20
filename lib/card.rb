@@ -2,17 +2,19 @@ class Card
 
   attr_accessor :color, :shape, :shading, :number
 
-  COLOR_RED = :red
-  COLOR_GREEN = :green
-  COLOR_PURPLE = :purple
+  PROPERTIES = [:color, :shape, :shading, :number]
 
-  SHAPE_DIAMOND = :diamond
-  SHAPE_SQUIGGLE = :squiggle
-  SHAPE_OVAL = :oval
+  COLOR_RED = :R
+  COLOR_GREEN = :G
+  COLOR_PURPLE = :P
 
-  SHADING_SOLID = :solid
-  SHADING_EMPTY = :empty
-  SHADING_STRIPED = :striped
+  SHAPE_DIAMOND = :DI
+  SHAPE_SQUIGGLE = :SQ
+  SHAPE_OVAL = :OV
+
+  SHADING_SOLID = :SOL
+  SHADING_EMPTY = :EMP
+  SHADING_STRIPED = :STR
 
   COLORS = [COLOR_RED, COLOR_GREEN, COLOR_PURPLE]
   SHAPES = [SHAPE_DIAMOND, SHAPE_SQUIGGLE, SHAPE_OVAL]
@@ -32,4 +34,7 @@ class Card
     self.number = number
   end
 
+  def to_s
+    "#{self.color} #{self.shape} #{self.shading} #{self.number}"
+  end
 end

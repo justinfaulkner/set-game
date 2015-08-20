@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'card'
 
 describe Card do
   describe 'on creation' do
