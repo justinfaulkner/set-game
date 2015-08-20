@@ -22,7 +22,11 @@ class PotentialSet
   end
 
   def variations_for_property property
-    @cards.map(&property).to_set
+    variations = Set.new
+    @cards.each do |card|
+      variations << card.send(property)
+    end
+    variations
   end
 
 
