@@ -16,11 +16,24 @@ describe Board do
 
     let(:board) { Board.new [card_1, card_2, card_3].to_set }
 
-    describe :find_set do
+    # describe :find_set do
+    #   it "should find the set" do
+    #     set = board.find_set
+    #     set.must_equal [card_1, card_2, card_3].to_set
+    #   end
+    # end
+
+    describe :find_set_for_card do
       it "should find the set" do
-        set = board.find_set
+        set = board.find_set_for_card card_1
+        set.wont_be_nil
+        set.count.must_equal 3
         set.must_equal [card_1, card_2, card_3].to_set
       end
+    end
+
+    describe :find_matching_third_card do
+      
     end
   end
 
@@ -32,26 +45,28 @@ describe Board do
 
     let(:board) { Board.new [card_1, card_2, card_3, card_4].to_set }
 
-    describe :find_set do
-      it "should find the set" do
-        set = board.find_set
-        set.must_equal [card_1, card_2, card_3].to_set
-      end
-    end
-    
-    describe :add_card_to_property_map do
-      it "should index card by all its properties" do
-        board.add_card_to_property_map card_1
+    # describe :find_set_for_card do
+    #   it "should find the set" do
+    #     set = board.find_set_for_card card_1
+    #     set.wont_be_nil
+    #     set.count.must_equal 3
+    #     set.must_equal [card_1, card_2, card_3].to_set
+    #   end
+    # end
 
-        board.property_map[Card::COLOR_RED].must_include card_1, 'should index by color'
-        board.property_map[Card::SHAPE_DIAMOND].must_include card_1, 'should index by shape'
-        board.property_map[Card::SHADING_SOLID].must_include card_1, 'should index by shading'
-        board.property_map[1].must_include card_1, 'should index by number'
-
-        board.property_map[Card::COLOR_GREEN].wont_include card_1, 'should not incorrectly index color'
-        board.property_map[2].wont_include card_1, 'should not incorrectly index number'
-      end
-    end
+    # describe :add_card_to_property_map do
+    #   it "should index card by all its properties" do
+    #     board.add_card_to_property_map card_1
+    #
+    #     board.property_map[Card::COLOR_RED].must_include card_1, 'should index by color'
+    #     board.property_map[Card::SHAPE_DIAMOND].must_include card_1, 'should index by shape'
+    #     board.property_map[Card::SHADING_SOLID].must_include card_1, 'should index by shading'
+    #     board.property_map[1].must_include card_1, 'should index by number'
+    #
+    #     board.property_map[Card::COLOR_GREEN].wont_include card_1, 'should not incorrectly index color'
+    #     board.property_map[2].wont_include card_1, 'should not incorrectly index number'
+    #   end
+    # end
   end
 
 end

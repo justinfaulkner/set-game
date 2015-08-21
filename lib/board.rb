@@ -23,7 +23,7 @@ class Board
     set = nil
     @cards.each do |card|
       set = find_set_for_card card
-      break unless set.empty?
+      break unless set.nil?
     end
     remove_set_from_property_map set unless set.nil?
     set
@@ -31,25 +31,33 @@ class Board
 
   def find_set_for_card card
     @cards.each do |second_card|
+      debugger
       next if second_card == card
+      debugger
       third_card = find_matching_third_card card, second_card
       return Set.new [card, second_card, third_card] unless third_card.nil?
     end
+    nil
   end
 
   def find_matching_third_card first, second
     matches = @cards
     Card::PROPERTIES.each do |property_name|
-      first_property = first.send(property_name)
-      second_property = second.send(property_name)
-      same = first_property == second_property
-      if same
-        matches = matches & matches_for_property(first_property)
-      else
-        matches = matches & antimatches_for_property(property_name, first_property, second_property)
-      end
+      matches = find_third_card_for_property(property_name, matches, first, second)
     end
     matches.first unless matches.empty?
+  end
+
+  def find_third_card_for_property(property_name, matches, first, second)
+    first_property = first.send(property_name)
+    second_property = second.send(property_name)
+    same = first_property == second_property
+    if same
+      matches = matches & matches_for_property(first_property)
+    else
+      matches = matches & antimatches_for_property(property_name, first_property, second_property)
+    end
+    matches
   end
 
   def matches_for_property property_value
